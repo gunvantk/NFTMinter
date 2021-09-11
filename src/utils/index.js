@@ -22,7 +22,7 @@ async function GetNFTOwnedByUser() {
     if (typeof window.ethereum != undefined) {
         var account = await requestAccount();
 
-        const contract = getContract('0x4124287f97D347f68EC2C871053B9bf27AB3bD69', contractArtifact);
+        const contract = getContract(process.env.REACT_APP_CONTRACT_ADDRESS, contractArtifact);
         try {
             ClearNFTGallery();
             var tokenIds = await contract.tokensOfOwner(account);
@@ -45,7 +45,7 @@ async function GetNFTCollection() {
     if (typeof window.ethereum != undefined) {
         await requestAccount();
 
-        const contract = getContract('0x4124287f97D347f68EC2C871053B9bf27AB3bD69', contractArtifact);
+        const contract = getContract(process.env.REACT_APP_CONTRACT_ADDRESS, contractArtifact);
         try {
             ClearNFTGallery();
             $('#lblGallery').text("NFT Collection");
