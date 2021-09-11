@@ -1,8 +1,9 @@
 import { ethers } from 'ethers';
 import { requestAccount, getContract } from "./common";
 import contractArtifact from "../abis/SampleContract.json";
+import { getCurrentWalletConnected } from "../utils/walletHelper.js";
 import $ from 'jquery';
-export const contract = getContract(process.env.REACT_APP_CONTRACT_ADDRESS, contractArtifact);
+export const contract = window.ethereum ? getContract(process.env.REACT_APP_CONTRACT_ADDRESS, contractArtifact) : "";
 
 
 async function LoadNFTById(tokenId) {
@@ -22,22 +23,27 @@ async function LoadNFTById(tokenId) {
 
 export const GetNFTOwnedByUser = async () => {
     if (typeof window.ethereum != undefined) {
-        var account = await requestAccount();
-
+        
         try {
             ClearNFTGallery();
-            var tokenIds = await contract.tokensOfOwner(account);
+            var currentAccount = await (await getCurrentWalletConnected()).address;
+           
+            var tokenIds = await contract.tokensOfOwner(currentAccount);
             if (tokenIds.length == 0) {
                 $('#lblGallery').text("You don't own any NFT from the collection, please purchase at OpenSea.");
-                return;
+                return "You don't own any NFT from the collection, please purchase at OpenSea.";
             }
             $('#lblGallery').text("My NFTs");
             for (let i = 0; i < tokenIds.length; i++) {
                 await LoadNFTById(tokenIds[i]);
             }
+            return "";
         } catch (err) {
             console.log(err);
+            return err;
         }
+    } else{
+        return  "💡 Connect your Metamask wallet to continue.";
     }
 };
 
@@ -45,13 +51,10 @@ export const GetNFTOwnedByUser = async () => {
 export const GetNFTCollection = async () => {
 
     if (typeof window.ethereum != undefined) {
-        await requestAccount();
-
+       
         try {
             ClearNFTGallery();
             $('#lblGallery').text("NFT Collection");
-            var test = contract;
-            debugger;
             var totalSupply = await contract.totalSupply();
 
             for (var i = 1; i <= 20; i++) {
@@ -62,6 +65,8 @@ export const GetNFTCollection = async () => {
             console.log(err);
             return err;
         }
+    } else{
+        return  "💡 Connect your Metamask wallet to continue.";
     }
 };
 

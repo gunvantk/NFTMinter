@@ -8,9 +8,9 @@ function RequestForm() {
     const [status, setStatus] = useState("");
     const [walletAddress, setWallet] = useState("");
 
-    //called only once
+    //called only once at startup
     useEffect(async () => {
-        await handleGetNFTCollection();
+        // await handleGetNFTCollection();
         addSmartContractListener();
 
         const { address, status } = await getCurrentWalletConnected();
