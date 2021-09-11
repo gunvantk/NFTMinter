@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { GetNFTOwnedByUser, GetNFTCollection, contract, getCurrentWalletConnected, connectWallet } from "../utils";
+import { GetNFTOwnedByUser, GetNFTCollection, contract} from "../utils";
+import { getCurrentWalletConnected, connectWallet } from "../utils/walletHelper.js";
 
 function RequestForm() {
     const [searchedUser, setSearchedUser] = useState();
