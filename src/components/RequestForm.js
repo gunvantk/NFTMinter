@@ -1,51 +1,71 @@
 import { useState } from 'react';
-
-import * as constants from "../constants";
-import { TextField, Button, Typography, Divider } from '@material-ui/core';
-
-import EthereumFaucet from "../abis/SampleContract.json";
-import { getEther, donateEther } from "../utils";
+import { GetNFTOwnedByUser, GetNFTCollection } from "../utils";
 
 function RequestForm() {
-    const [walletAddr, setWalletAddr] = useState();
-    const [etherReq, setEtherReq] = useState();
-    const [etherDonate, setEtherDonate] = useState();
+    const [searchedUser, setSearchedUser] = useState();
     const [requestLoading, setRequestLoading] = useState(false);
-    const [donateLoading, setDonateLoading] = useState(false);
-
-    async function handleGetEther() {
+   
+    async function handleGetNFTOwnedByUser() {
         setRequestLoading(true);
-        await getEther(process.env.DEPLOYED_ADDRESS, EthereumFaucet, etherReq, walletAddr);
+        await GetNFTOwnedByUser();
         setRequestLoading(false);
     }
 
-    async function handleDonateEther() {
-        setDonateLoading(true);
-        await donateEther(process.env.DEPLOYED_ADDRESS, EthereumFaucet, etherDonate);
-        setDonateLoading(false);
+    async function handleGetNFTCollection() {
+        setRequestLoading(true);
+        await GetNFTCollection();
+        setRequestLoading(false);
     }
+
+    async function handleSearchNFT() {
+        setRequestLoading(true);
+        await GetNFTCollection(searchedUser);
+        setRequestLoading(false);
+    }
+
+    
 
     return (
         <div className="App" style={{ padding: "50px" }}>
-            <Typography variant="h4">
-                Rinkeby Faucet
-            </Typography>
+            <div class="topMenubar">
+                <h1>BeautyVerse</h1>
+                <div>
+                    <a href="https://testnets.opensea.io/collection/beautyverse" target="_blank"
+                        class="inlineBlock"> OpenSea
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em"
+                            width="1em" xmlns="http://www.w3.org/2000/svg"
+                            class="svgIcon">
+                            <path
+                                d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z">
+                            </path>
+                        </svg></a>
+                    <button id="btnConnectWallet" class="inlineBlock">Connect Wallet</button>
+                </div>
 
-            <TextField fullWidth onChange={e => setWalletAddr(e.target.value)} label="Wallet Address" /><br /><br />
-            <TextField fullWidth onChange={e => setEtherReq(e.target.value)} type="number" label="Ethers Required" /><br /><br />
+            </div>
+
+
 
             {requestLoading && <div><p>Loading...</p><br /></div>}
-            <Button onClick={handleGetEther} variant="contained" color="primary">
-                Submit
-            </Button><br /><br /><br />
+          
+            <div>
 
-            <Divider light /><br /><br />
+                <button id="btnGetNFTOwnedByUser" onClick={handleGetNFTOwnedByUser} class="inlineBlock">Show My
+                    NFT</button>
+                <button id="btnGetNFTCollection" onClick={handleGetNFTCollection} class="inlineBlock">Show
+                    Collection</button>
 
-            <TextField fullWidth onChange={e => setEtherDonate(e.target.value)} type="number" label="Ethers to donate" /><br /><br />
-            {donateLoading && <div><p>Loading...</p><br /></div>}
-            <Button onClick={handleDonateEther} variant="contained" color="primary">
-                Submit
-            </Button><br /><br />
+            </div>
+
+
+            <div id="divContainer" class="container">
+                <label id="lblGallery"></label>
+                <div id="divGallery" class="gallery">
+
+                </div>
+            </div>
+
+
         </div>
     );
 }

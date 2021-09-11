@@ -1,0 +1,107 @@
+body {
+  background-color:#F0F0F0;
+  padding: 1em 2em;
+  font-family: 'Raleway','Source Sans Pro', 'Arial';
+}
+
+label {
+  display:block;
+  margin-bottom:10px;
+}
+input {
+  padding:10px;
+  width: 50%;
+  margin-bottom: 1em;
+}
+
+button {
+  margin: 1em 0;
+  padding: 1em 4em;
+  display:block;
+  background-color: #00BCD4 
+}
+
+#setMessageButton {
+  padding:1em;
+  background-color:#fff;
+  margin: 1em 0;
+  background-color: #00BCD4;
+  color: #fff 
+}
+
+
+.container {
+max-width: 100rem;
+margin: 0 auto;
+/*padding: 0 2rem 2rem;*/
+}
+
+.gallery {
+display: flex;
+flex-wrap: wrap;
+/* Compensate for excess margin on outer gallery flex items */
+margin: -1rem -1rem;
+  padding: 1rem;
+}
+
+.gallery-item {
+/* Minimum width of 24rem and grow to fit available space */
+flex: 1 0 24rem;
+/* Margin value should be half of grid-gap value as margins on flex items don't collapse */
+margin: 1rem;
+box-shadow: 0.3rem 0.4rem 0.4rem rgba(0, 0, 0, 0.4);
+overflow: hidden;
+  width: 350px;
+  height: 400px;
+}
+
+.gallery-image {
+display: block;
+width: 100%;
+height: 100%;
+object-fit: cover;
+transition: transform 400ms ease-out;
+}
+
+.gallery-image:hover {
+transform: scale(1.03);
+}
+
+.lblGallery{
+  margin-left: 1rem;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.topMenuBar{
+  display: flex; justify-content: space-between;
+}
+
+.inlineBlock{
+  display: inline-block;
+}
+
+.svgIcon{
+  width: 12px; height: 12px; margin-left: 3px;
+}
+/*
+
+The following rule will only run if your browser supports CSS grid.
+
+Remove or comment-out the code block below to see how the browser will fall-back to flexbox styling. 
+
+*/
+
+@supports (display: grid) {
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
+  grid-gap: 2rem;
+}
+
+.gallery,
+.gallery-item {
+  margin: 0;
+}
+}
