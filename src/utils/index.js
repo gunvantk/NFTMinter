@@ -23,11 +23,11 @@ async function LoadNFTById(tokenId) {
 
 export const GetNFTOwnedByUser = async () => {
     if (typeof window.ethereum != undefined) {
-        
+
         try {
             ClearNFTGallery();
             var currentAccount = await (await getCurrentWalletConnected()).address;
-           
+
             var tokenIds = await contract.tokensOfOwner(currentAccount);
             if (tokenIds.length == 0) {
                 $('#lblGallery').text("You don't own any NFT from the collection, please purchase at OpenSea.");
@@ -42,8 +42,8 @@ export const GetNFTOwnedByUser = async () => {
             console.log(err);
             return err;
         }
-    } else{
-        return  "💡 Connect your Metamask wallet to continue.";
+    } else {
+        return "💡 Connect your Metamask wallet to continue.";
     }
 };
 
@@ -51,7 +51,7 @@ export const GetNFTOwnedByUser = async () => {
 export const GetNFTCollection = async () => {
 
     if (typeof window.ethereum != undefined) {
-       
+
         try {
             ClearNFTGallery();
             $('#lblGallery').text("NFT Collection");
@@ -65,19 +65,19 @@ export const GetNFTCollection = async () => {
             console.log(err);
             return err;
         }
-    } else{
-        return  "💡 Connect your Metamask wallet to continue.";
+    } else {
+        return "💡 Connect your Metamask wallet to continue.";
     }
 };
 
 function AddNftToGallery(img, tokenId) {
     var imgItem = $('<div />')
-        .attr({ "class": "gallery-image" })
+        .attr({ "class": "group block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden object-cover pointer-events-none group-hover:opacity-75" })
         .html(img);
 
-    $('<div />')
-        .attr({ "class": "gallery-item" })
-        .html(imgItem.html() + "</br><label>Avatar# " + tokenId + " </label>").appendTo('#divGallery');
+    $('<li />')
+        .attr({ "class": "relative shadow-xl" })
+        .html(imgItem.html() + "<p class=\"m-2\">Avatar# " + tokenId + " </p>").appendTo('#divGallery');
 }
 
 function ClearNFTGallery() {

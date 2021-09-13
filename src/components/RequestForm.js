@@ -128,7 +128,7 @@ function RequestForm() {
                                         />
                                     </div>
                                     <div className="hidden md:block">
-                                        <span class="ml-3 text-white text-300 text-2xl"> ForeverCert </span>
+                                        <span className="ml-3 text-white text-300 text-2xl"> ForeverCert </span>
                                     </div>
                                 </div>
                                 <div className="hidden md:block">
@@ -148,7 +148,7 @@ function RequestForm() {
                                     </div>
                                 </div>
                             </div>
-                        </div>                        
+                        </div>
                     </>
                 )}
             </Disclosure>
@@ -159,9 +159,8 @@ function RequestForm() {
                 </div>
             </header>
             <main>
-                <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-                    {/* Replace with your content */}
-                    <div>
+                <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">                    
+                    <div className="">
                         <button type="button" onClick={handleGetNFTOwnedByUser}
                             className="relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         >
@@ -178,16 +177,13 @@ function RequestForm() {
                     </div>
 
 
-                    <div id="divContainer" class="container">
-                        <label id="lblGallery"></label>
-                        <div id="divGallery" class="gallery">
-
-                        </div>
+                    <div id="divContainer" className="mt-6">
+                        <h2 id="lblGallery" className="text-3xl font-bold leading-tight text-gray-900 mb-3">
+                            Please pick option from above to continue..
+                        </h2>
+                        <ul id="divGallery" role="list"
+                            className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-3 xl:gap-x-8"> </ul>
                     </div>
-                    <div className="px-4 py-4 sm:px-0">
-                        <div className="border-4 border-dashed border-gray-200 rounded-lg h-96" />
-                    </div>
-                    {/* /End replace */}
                 </div>
             </main>
         </div>
