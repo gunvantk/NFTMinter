@@ -1,9 +1,8 @@
 import { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+
 import { useEffect, useState } from 'react';
 import { GetNFTOwnedByUser, GetNFTCollection, contract } from "../utils";
-import { getCurrentWalletConnected, connectWallet } from "../utils/walletHelper.js";
+
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -13,62 +12,9 @@ function RequestForm() {
     const [searchedUser, setSearchedUser] = useState();
     const [requestLoading, setRequestLoading] = useState(false);
     const [status, setStatus] = useState("");
-    const [walletAddress, setWallet] = useState("");
+ 
 
-    //called only once at startup
-    useEffect(async () => {
-        // await handleGetNFTCollection();
-        addSmartContractListener();
-
-        const { address, status } = await getCurrentWalletConnected();
-
-        setWallet(address);
-        setStatus(status);
-
-        addWalletListener();
-    }, []);
-
-    function addSmartContractListener() {
-        // contract.events.UpdatedMessages({}, (error, data) => {
-        //     if (error) {
-        //         setStatus(error.message);
-        //     } else {
-        //         setStatus(data.returnValues[1]);
-        //     }
-        // });
-    }
-
-    function addWalletListener() {
-        if (window.ethereum) {
-            window.ethereum.on("accountsChanged", (accounts) => {
-                if (accounts.length > 0) {
-                    setWallet(accounts[0]);
-                    setStatus("Get NFT");
-                } else {
-                    setWallet("");
-                    setStatus("🦊 Connect to Metamask using the top right button.");
-                }
-            });
-        } else {
-            setStatus(
-                <p>
-                    {" "}
-                    🦊{" "}
-                    <a target="_blank" href={`https://metamask.io/download.html`}>
-                        You must install Metamask, a virtual Ethereum wallet, in your
-                        browser.
-                    </a>
-                </p>
-            );
-        }
-    }
-
-    const connectWalletPressed = async () => {
-        debugger;
-        const walletResponse = await connectWallet();
-        setStatus(walletResponse.status);
-        setWallet(walletResponse.address);
-    };
+  
 
     async function handleGetNFTOwnedByUser() {
         setRequestLoading(true);

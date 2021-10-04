@@ -1,6 +1,11 @@
 
 
 function MinterForm() {
+
+  async function handleMintNFT() {
+    //const { status } = await GetNFTOwnedByUser();   
+}
+
     return (
         <form className="mt-8 space-y-8 divide-y divide-gray-200">
         <div className="space-y-8 divide-y divide-gray-200 sm:space-y-5">
@@ -98,7 +103,8 @@ function MinterForm() {
               Cancel
             </button>
             <button
-              type="submit"
+              type="button"
+              onClick={handleMintNFT}
               className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Mint
