@@ -29,3 +29,4 @@ cache
 *.env
 package-lock.json
 package-lock.json
+src/styles/output.css
