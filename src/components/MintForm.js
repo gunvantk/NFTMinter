@@ -1,11 +1,31 @@
-
+import { mintNFT } from "../utils/Minty";
+import { useEffect, useState } from 'react';
 
 function MinterForm() {
+  const [file, setFile] = useState(null);
+  const [previewURL, setPreviewURL] = useState(null);
+  const [nftName, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [minting, setMinting] = useState(false);
+  const [status, setStatus] = useState("");
+  const [tokenId, setTokenId] = useState(null);
+
+  const mintEnabled = file != null && !!nftName;
 
   async function handleMintNFT() {
-    //const { status } = await GetNFTOwnedByUser();   
-}
-
+    console.log(`minting nft with name ${nftName}`);
+    setMinting(true);
+    mintNFT({
+      setStatus,
+      name: nftName, 
+      image: file, 
+      description 
+    }).then(newTokenId => {
+        setMinting(false);
+        console.log('minting complete');
+        setTokenId(newTokenId);
+      });   
+  }
     return (
         <form className="mt-8 space-y-8 divide-y divide-gray-200">
         <div className="space-y-8 divide-y divide-gray-200 sm:space-y-5">
@@ -29,9 +49,7 @@ function MinterForm() {
               <div className="mt-1 sm:mt-0 sm:col-span-2">
                 <input
                   type="text"
-                  name="first-name"
-                  id="first-name"
-                  autoComplete="given-name"
+                  onChange={e => setName(e.target.value)}
                   className="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
                 />
               </div>
@@ -44,9 +62,7 @@ function MinterForm() {
               <div className="mt-1 sm:mt-0 sm:col-span-2">
                 <input
                   type="text"
-                  name="last-name"
-                  id="last-name"
-                  autoComplete="family-name"
+                  onChange={e => setDescription(e.target.value)}
                   className="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
                 />
               </div>
@@ -80,7 +96,7 @@ function MinterForm() {
                           className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                         >
                           <span>Upload a file</span>
-                          <input id="file-upload" name="file-upload" type="file" className="sr-only" />
+                          <input id="file-upload" name="file-upload" type="file" className="sr-only" onChange={(e) => setFile(e.target.files[0])}/>
                         </label>
                         <p className="pl-1">or drag and drop</p>
                       </div>
@@ -105,14 +121,19 @@ function MinterForm() {
             <button
               type="button"
               onClick={handleMintNFT}
+              disabled={!mintEnabled} 
               className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Mint
             </button>
           </div>
         </div>
+        <div>
+          {status}
+        </div>
       </form>
     )
 }
+
 
 export default MinterForm;
