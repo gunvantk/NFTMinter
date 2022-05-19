@@ -35,6 +35,7 @@ export const GetNFTOwnedByUser = async () => {
             }
             $('#lblGallery').text("My NFTs");
             for (let i = 0; i < tokenIds.length; i++) {
+                console.log(`Loading token# ` + i);
                 await LoadNFTById(tokenIds[i]);
             }
             return "";
@@ -56,7 +57,7 @@ export const GetNFTCollection = async () => {
             ClearNFTGallery();
             $('#lblGallery').text("NFT Collection");
             var totalSupply = await contract.totalSupply();
-
+            debugger;
             for (var i = 1; i <= 20; i++) {
                 await LoadNFTById(i);
             }

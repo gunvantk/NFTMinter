@@ -21,8 +21,8 @@ debugger;
   
     // the returned metadata.url has the IPFS URI we want to add.
     // our smart contract already prefixes URIs with "ipfs://", so we remove it before calling the `mintToken` function
-    const metadataURI = metadata.url.replace(/^ipfs:\/\//, "");
-  
+    //const metadataURI = metadata.url.replace(/^ipfs:\/\//, "");
+    const metadataURI = metadata;
 
     const tokenId = await contract.mintToken(ownerAddress, metadataURI);
   
